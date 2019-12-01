@@ -7,7 +7,9 @@ Requirements (dev)
 
 Usage
 == 
-`go run main.go`
+`go run main.go <distance in Km>`
+like
+`go run main.go 2000`
 
 Example output
 ```
