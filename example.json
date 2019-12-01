@@ -1,0 +1,152 @@
+[
+  {
+    "distance": 259,
+    "lat": 53.630389,
+    "lon": 9.988228,
+    "name": "Hamburg"
+  },
+  {
+    "distance": 8245,
+    "lat": -20.055333,
+    "lon": 30.859111,
+    "name": "Masvingo Intl"
+  },
+  {
+    "distance": 144,
+    "lat": 51.432447,
+    "lon": 12.241633,
+    "name": "Leipzig Halle"
+  },
+  {
+    "distance": 591,
+    "lat": 51.394783,
+    "lon": 4.960194,
+    "name": "Weelde"
+  },
+  {
+    "distance": 144,
+    "lat": 51.29625,
+    "lon": 14.129,
+    "name": "Kamenz"
+  },
+  {
+    "distance": 9660,
+    "lat": -34.005553,
+    "lon": 22.378889,
+    "name": "George"
+  },
+  {
+    "distance": 7770,
+    "lat": -7.134567,
+    "lon": 56.278239,
+    "name": "Coetivy"
+  },
+  {
+    "distance": 240,
+    "lat": 50.979811,
+    "lon": 10.958106,
+    "name": "Erfurt"
+  },
+  {
+    "distance": 1044,
+    "lat": 53.338056,
+    "lon": -2.148889,
+    "name": "Manchester Woodford"
+  },
+  {
+    "distance": 8922,
+    "lat": -26.871064,
+    "lon": 26.718003,
+    "name": "P C Pelser"
+  },
+  {
+    "distance": 8166,
+    "lat": -18.997499,
+    "lon": 32.627224,
+    "name": "Mutare"
+  },
+  {
+    "distance": 6024,
+    "lat": -1.656156,
+    "lon": 13.438036,
+    "name": "Mvengue"
+  },
+  {
+    "distance": 1131,
+    "lat": 49.706111,
+    "lon": -2.214722,
+    "name": "Alderney"
+  },
+  {
+    "distance": 9017,
+    "lat": -27.660617,
+    "lon": 27.315761,
+    "name": "Kroonstad"
+  },
+  {
+    "distance": 8158,
+    "lat": -19.436394,
+    "lon": 29.861911,
+    "name": "Gweru Thornhill"
+  },
+  {
+    "distance": 7555,
+    "lat": -11.361789,
+    "lon": 40.354875,
+    "name": "Mocimboa Da Praia"
+  },
+  {
+    "distance": 5416,
+    "lat": 3.836039,
+    "lon": 11.523461,
+    "name": "Yaounde Ville"
+  },
+  {
+    "distance": 8837,
+    "lat": -25.938514,
+    "lon": 27.926133,
+    "name": "Lanseria"
+  },
+  {
+    "distance": 6330,
+    "lat": -4.38575,
+    "lon": 15.444569,
+    "name": "Ndjili Intl"
+  },
+  {
+    "distance": 8017,
+    "lat": -17.931806,
+    "lon": 31.092847,
+    "name": "Harare Intl"
+  },
+  {
+    "distance": 9705,
+    "lat": -34.554861,
+    "lon": 20.250681,
+    "name": "Overberg"
+  },
+  {
+    "distance": 6498,
+    "lat": -5.918056,
+    "lon": 12.447694,
+    "name": "Kitona Base"
+  },
+  {
+    "distance": 7216,
+    "lat": -9.953569,
+    "lon": 33.893022,
+    "name": "Karonga"
+  },
+  {
+    "distance": 4621,
+    "lat": 48.936944,
+    "lon": -54.568056,
+    "name": "Gander Intl"
+  },
+  {
+    "distance": 9678,
+    "lat": -34.090279,
+    "lon": 23.327778,
+    "name": "Plettenberg Bay"
+  }
+]
