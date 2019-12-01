@@ -2,11 +2,9 @@ package main
 
 import (
 	"encoding/json"
-	"flag"
 	"fmt"
 	"io/ioutil"
 	"os"
-	"strconv"
 )
 
 func main() {
@@ -25,26 +23,12 @@ func main() {
 	// jsonFile's content into 'users' which we defined above
 	json.Unmarshal(byteValue, &city)
 
-	var distanceFilter int
-	if len(os.Args) > 1 {
-		flag.Parse()
-		s := flag.Arg(0)
-		// string to int
-		distanceFilter, err = strconv.Atoi(s)
-		if err != nil {
-			// handle error
-			fmt.Println(err)
-			os.Exit(2)
-		}
-	} else {
-		distanceFilter = 1000
-		fmt.Println("Defaulting distance to 1000")
-	}
+	distanceLimit := argParser()
 
 	var citiesWithinDistance []City
 	for i := 0; i < len(city); i++ {
 		distance := int(calculateDistance(city[i].Lat, city[i].Lon, 47.497913, 19.040236, "K"))
-		if distance < distanceFilter {
+		if distance < distanceLimit {
 			city[i].Distance = distance
 			citiesWithinDistance = append(citiesWithinDistance, city[i])
 		}
