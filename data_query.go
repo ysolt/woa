@@ -22,15 +22,12 @@ func fetchData() ([]byte, error) {
 
 	res, getErr := spaceClient.Do(req)
 	if getErr != nil {
-		return nil, err
+		return nil, getErr
 	}
 
 	body, readErr := ioutil.ReadAll(res.Body)
-	if readErr != nil {
-		return nil, err
-	}
 	//fmt.Println(string(body))
-	return body, err
+	return body, readErr
 }
 
 func getDatabaseEntries(queryresult *QueryResult) error {
