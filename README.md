@@ -21,3 +21,10 @@ Example output
             Alderney |  1576|
  Manchester Woodford |  1627|
 ```
+
+Debugging
+==
+How to get `cludant_response_example.json`? 
+
+Use 
+```curl --globoff  'https://mikerhodes.cloudant.com/airportdb/_design/view1/_search/geo?limit=200&q=lon:[-90%20TO%2090]%20AND%20lat:[-90%20TO%2090]'```

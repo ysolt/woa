@@ -9,6 +9,18 @@ import (
 	"text/tabwriter"
 )
 
+type QueryResult struct {
+	Bookmark  string `json:"bookmark"`
+	totalRows int    `json:"total_rows"`
+	Rows      []Doc  `json:"rows"`
+}
+
+type Doc struct {
+	Id    string `json:"id"`
+	Order string `json:"order"`
+	City  City   `json:"fields"`
+}
+
 type City struct {
 	Name     string  `json:"name"`
 	Lon      float64 `json:"lon"`
@@ -49,6 +61,9 @@ func calculateDistance(lat1 float64, lng1 float64, lat2 float64, lng2 float64, u
 func displayCitiesWithinDistance(citiesWithinDistance []City) {
 	sort.Sort(ByDistance(citiesWithinDistance))
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, 1, ' ', tabwriter.AlignRight|tabwriter.Debug)
+	fmt.Fprintln(w, "City name \t Distance \t")
+	fmt.Fprintln(w, "-------------\t ---------\t")
+
 	for i := 0; i < len(citiesWithinDistance); i++ {
 		fmt.Fprintln(w, citiesWithinDistance[i].Name+" \t "+strconv.Itoa(citiesWithinDistance[i].Distance)+"\t")
 	}
