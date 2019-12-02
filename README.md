@@ -7,24 +7,18 @@ Requirements (dev)
 
 Usage
 == 
-`go run . <distance in Km>`
+`go run . <latitude> <longitude> <distance in Km>`
 like
-`go run . 2000`
+`go run . 47.497913 19.040236 100`
 
 Example output
 ```
-              Kamenz |   551|
-       Leipzig Halle |   657|
-              Erfurt |   702|
-             Hamburg |   933|
-              Weelde |  1103|
-            Alderney |  1576|
- Manchester Woodford |  1627|
+                      City name |  Distance |      Latitude | Longitude
+                   -------------|  ---------|  -------------|  ---------|
+                Budapest Keteli |          3|     47.500497 | 19.085484
+                       Ferihegy |         17|     47.436933 | 19.255592
+                      Kecskemet |         83|       46.9175 | 19.749222
+            Szentkiralyszabadja |         93|     47.077861 | 17.968444
+ Győr-Pér International Airport |         93|     47.627097 | 17.808347
+                        Szolnok |         99|     47.122861 | 20.2355
 ```
-
-Debugging
-==
-How to get `cludant_response_example.json`? 
-
-Use 
-```curl --globoff  'https://mikerhodes.cloudant.com/airportdb/_design/view1/_search/geo?limit=200&q=lon:[-90%20TO%2090]%20AND%20lat:[-90%20TO%2090]' > resources/cludant_response_example.json```
