@@ -16,9 +16,9 @@ type QueryResult struct {
 }
 
 type Doc struct {
-	Id    string `json:"id"`
-	Order string `json:"order"`
-	City  City   `json:"fields"`
+	Id    string    `json:"id"`
+	Order []float64 `json:"order"`
+	City  City      `json:"fields"`
 }
 
 type City struct {
