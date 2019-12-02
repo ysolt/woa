@@ -60,7 +60,7 @@ func getDatabaseEntriesFor(lat float64, lon float64, distanceLimit int) ([]City,
 		}
 
 		//fmt.Println(key, len(tmpResults.Rows))
-		if len(tmpResults.Rows) < 200 {
+		if key == tmpResults.Bookmark {
 			break
 		}
 		key = tmpResults.Bookmark
