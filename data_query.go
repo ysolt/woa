@@ -35,22 +35,35 @@ func fetchData(bookmarkKey string) ([]byte, error) {
 	return body, readErr
 }
 
-func getDatabaseEntries(queryresult *QueryResult) error {
+func getDatabaseEntries(distanceLimit int) ([]City, error) {
 	key := ""
 	var err error
 	var byteValue []byte
+	var tmpResults QueryResult
+	var citiesWithinDistance []City
 
 	for {
 		byteValue, err = fetchData(key)
 		if err != nil {
-			return err
+			return nil, err
 		}
-		err = json.Unmarshal(byteValue, &queryresult)
-		key = queryresult.Bookmark
-		//fmt.Println(key, len(queryresult.Rows))
-		if len(queryresult.Rows) < 200 {
+
+		err = json.Unmarshal(byteValue, &tmpResults)
+
+		for i := 0; i < len(tmpResults.Rows); i++ {
+			distance := int(calculateDistance(tmpResults.Rows[i].City.Lat, tmpResults.Rows[i].City.Lon, 47.497913, 19.040236, "K"))
+			if distance < distanceLimit {
+				tmpResults.Rows[i].City.Distance = distance
+				citiesWithinDistance = append(citiesWithinDistance, tmpResults.Rows[i].City)
+			}
+
+		}
+
+		//fmt.Println(key, len(tmpResults.Rows))
+		if len(tmpResults.Rows) < 200 {
 			break
 		}
+		key = tmpResults.Bookmark
 	}
-	return err
+	return citiesWithinDistance, err
 }
