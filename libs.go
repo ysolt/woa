@@ -61,6 +61,9 @@ func calculateDistance(lat1 float64, lng1 float64, lat2 float64, lng2 float64, u
 func displayCitiesWithinDistance(citiesWithinDistance []City) {
 	sort.Sort(ByDistance(citiesWithinDistance))
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, 1, ' ', tabwriter.AlignRight|tabwriter.Debug)
+	fmt.Fprintln(w, "City name \t Distance \t")
+	fmt.Fprintln(w, "-------------\t ---------\t")
+
 	for i := 0; i < len(citiesWithinDistance); i++ {
 		fmt.Fprintln(w, citiesWithinDistance[i].Name+" \t "+strconv.Itoa(citiesWithinDistance[i].Distance)+"\t")
 	}
