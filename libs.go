@@ -9,6 +9,18 @@ import (
 	"text/tabwriter"
 )
 
+type QueryResult struct {
+	Bookmark  string `json:"bookmark"`
+	totalRows int    `json:"total_rows"`
+	Rows      []Doc  `json:"rows"`
+}
+
+type Doc struct {
+	Id    string `json:"id"`
+	Order string `json:"order"`
+	City  City   `json:"fields"`
+}
+
 type City struct {
 	Name     string  `json:"name"`
 	Lon      float64 `json:"lon"`
