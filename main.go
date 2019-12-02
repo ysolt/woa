@@ -1,27 +1,17 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"os"
 )
 
 func main() {
-	filename := "resources/cloudant_response_example.json"
-	// Open our jsonFile
-	jsonFile, err := os.Open(filename)
-	// if we os.Open returns an error then handle it
+	var queryresult QueryResult
+	err := getDatabaseEntries(&queryresult)
 	if err != nil {
 		fmt.Println(err)
+		os.Exit(3)
 	}
-	//fmt.Println("Successfully Opened " + filename)
-
-	byteValue, _ := ioutil.ReadAll(jsonFile)
-	var queryresult QueryResult
-	// we unmarshal our byteArray which contains our
-	// jsonFile's content into 'users' which we defined above
-	json.Unmarshal(byteValue, &queryresult)
 
 	distanceLimit := argParser()
 
@@ -36,5 +26,4 @@ func main() {
 	}
 	displayCitiesWithinDistance(citiesWithinDistance)
 
-	defer jsonFile.Close()
 }
