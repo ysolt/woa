@@ -7,23 +7,28 @@ import (
 	"strconv"
 )
 
-func argParser() int {
-	var distanceLimit int
+func argParser() (float64, float64, int) {
+	var parsedArgs [3]float64
 	var err error
 
-	if len(os.Args) > 1 {
+	if len(os.Args) > 2 {
 		flag.Parse()
-		s := flag.Arg(0)
-		// string to int
-		distanceLimit, err = strconv.Atoi(s)
-		if err != nil {
-			// handle error
-			fmt.Println(err)
-			os.Exit(2)
+
+		for i := 0; i < 3; i++ {
+			s := flag.Arg(i)
+			parsedArgs[i], err = strconv.ParseFloat(s, 64)
+			if err != nil {
+				// handle error
+				fmt.Println(err)
+				os.Exit(2)
+			}
 		}
+
 	} else {
-		distanceLimit = 1000
-		fmt.Println("Defaulting distance limiter to to " + strconv.Itoa(distanceLimit))
+		fmt.Println("Not enough parameters!\n" +
+			"Usage: woa <latitude> <longitude> <distance_in_km>\n" +
+			"E.g ./woa 47.497913 19.040236 1000")
+		os.Exit(1)
 	}
-	return distanceLimit
+	return parsedArgs[0], parsedArgs[1], int(parsedArgs[2])
 }

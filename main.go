@@ -7,9 +7,9 @@ import (
 
 func main() {
 
-	distanceLimit := argParser()
+	lat, lon, distanceLimit := argParser()
 
-	citiesWithinDistance, err := getDatabaseEntries(distanceLimit)
+	citiesWithinDistance, err := getDatabaseEntriesFor(lat, lon, distanceLimit)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(3)

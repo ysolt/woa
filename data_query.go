@@ -35,7 +35,7 @@ func fetchData(bookmarkKey string) ([]byte, error) {
 	return body, readErr
 }
 
-func getDatabaseEntries(distanceLimit int) ([]City, error) {
+func getDatabaseEntriesFor(lat float64, lon float64, distanceLimit int) ([]City, error) {
 	key := ""
 	var err error
 	var byteValue []byte
@@ -51,7 +51,7 @@ func getDatabaseEntries(distanceLimit int) ([]City, error) {
 		err = json.Unmarshal(byteValue, &tmpResults)
 
 		for i := 0; i < len(tmpResults.Rows); i++ {
-			distance := int(calculateDistance(tmpResults.Rows[i].City.Lat, tmpResults.Rows[i].City.Lon, 47.497913, 19.040236, "K"))
+			distance := int(calculateDistance(tmpResults.Rows[i].City.Lat, tmpResults.Rows[i].City.Lon, lat, lon, "K"))
 			if distance < distanceLimit {
 				tmpResults.Rows[i].City.Distance = distance
 				citiesWithinDistance = append(citiesWithinDistance, tmpResults.Rows[i].City)
@@ -60,7 +60,7 @@ func getDatabaseEntries(distanceLimit int) ([]City, error) {
 		}
 
 		//fmt.Println(key, len(tmpResults.Rows))
-		if len(tmpResults.Rows) < 200 {
+		if key == tmpResults.Bookmark {
 			break
 		}
 		key = tmpResults.Bookmark
