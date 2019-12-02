@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	filename := "cloudant_response_example.json"
+	filename := "resources/cloudant_response_example.json"
 	// Open our jsonFile
 	jsonFile, err := os.Open(filename)
 	// if we os.Open returns an error then handle it
