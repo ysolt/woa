@@ -69,7 +69,7 @@ go build ~/go/src/github.com/ysolt/woa
 If you want to cross-compile the application to other operating systems
 Windows:
 ```
-go build ~/go/src/github.com/ysolt/woa -o woa.exe
+GOOS=windows GOARCH=amd64 go build -o woa.exe ~/go/src/github.com/ysolt/woa
 ```
 
 Linux:
