@@ -28,7 +28,7 @@ type City struct {
 	Distance int
 }
 
-func calculateDistance(lat1 float64, lng1 float64, lat2 float64, lng2 float64, unit ...string) float64 {
+func calculateDistance(lat1 float64, lng1 float64, lat2 float64, lng2 float64) float64 {
 	const PI float64 = 3.141592653589793
 
 	radlat1 := float64(PI * lat1 / 180)
@@ -45,15 +45,7 @@ func calculateDistance(lat1 float64, lng1 float64, lat2 float64, lng2 float64, u
 
 	dist = math.Acos(dist)
 	dist = dist * 180 / PI
-	dist = dist * 60 * 1.1515
-
-	if len(unit) > 0 {
-		if unit[0] == "K" {
-			dist = dist * 1.609344
-		} else if unit[0] == "N" {
-			dist = dist * 0.8684
-		}
-	}
+	dist = dist * 60 * 1.1515 * 1.609344
 
 	return dist
 }

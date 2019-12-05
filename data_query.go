@@ -51,7 +51,7 @@ func getDatabaseEntriesFor(lat float64, lon float64, distanceLimit int) ([]City,
 		err = json.Unmarshal(byteValue, &tmpResults)
 
 		for i := 0; i < len(tmpResults.Rows); i++ {
-			distance := int(calculateDistance(tmpResults.Rows[i].City.Lat, tmpResults.Rows[i].City.Lon, lat, lon, "K"))
+			distance := int(calculateDistance(tmpResults.Rows[i].City.Lat, tmpResults.Rows[i].City.Lon, lat, lon))
 			if distance < distanceLimit {
 				tmpResults.Rows[i].City.Distance = distance
 				citiesWithinDistance = append(citiesWithinDistance, tmpResults.Rows[i].City)
