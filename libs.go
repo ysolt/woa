@@ -28,6 +28,8 @@ type City struct {
 	Distance int
 }
 
+const PI float64 = 3.141592653589793
+
 func calculateDistance(lat1 float64, lng1 float64, lat2 float64, lng2 float64) float64 {
 	const PI float64 = 3.141592653589793
 
@@ -50,20 +52,31 @@ func calculateDistance(lat1 float64, lng1 float64, lat2 float64, lng2 float64) f
 	return dist
 }
 
+func latitudeCalculator(radlat1 float64, angularDistance float64, angle float64) float64 {
+	// helper function for calculateQueryFilter
+	return math.Asin(math.Sin(radlat1)*math.Cos(angularDistance) + math.Cos(radlat1)*math.Sin(angularDistance)*math.Cos(angle))
+}
+
 func calculateQueryFilter(dist int, lat1 float64, lon1 float64) (float64, float64, float64, float64) {
-	const PI float64 = 3.141592653589793
+	// Mathematical formula gathered from: https://www.movable-type.co.uk/scripts/latlong.html ->
+	// "Destination point given distance and bearing from start point"
 
 	radlat1 := PI * lat1 / 180
 
 	angularDistance := float64(dist) / 60 / 1.1515 / 1.609344 * PI / 180
 
-	lat2North := math.Asin(math.Sin(radlat1)*math.Cos(angularDistance)+math.Cos(radlat1)*math.Sin(angularDistance)*math.Cos(0)) * 180 / PI
-	lat2South := math.Asin(math.Sin(radlat1)*math.Cos(angularDistance)+math.Cos(radlat1)*math.Sin(angularDistance)*math.Cos(PI)) * 180 / PI
+	// Calculate Latitude coordinate north (0 degree) of the original point
+	lat2North := latitudeCalculator(radlat1, angularDistance, 0) * 180 / PI
 
-	tmp := math.Asin(math.Sin(radlat1)*math.Cos(angularDistance) + math.Cos(radlat1)*math.Sin(angularDistance)*math.Cos(PI/2))
+	// Calculate Latitude coordinate south (180 degree) of the original point
+	lat2South := latitudeCalculator(radlat1, angularDistance, PI) * 180 / PI
+
+	// Calculate Longitude coordinate east (90 degree) from the original point
+	tmp := latitudeCalculator(radlat1, angularDistance, PI/2)
 	lon2East := lon1 + math.Atan2(math.Sin(PI/2)*math.Sin(angularDistance)*math.Cos(radlat1), math.Cos(angularDistance)-math.Sin(radlat1)*math.Sin(tmp))*180/PI
 
-	tmp2 := math.Asin(math.Sin(radlat1)*math.Cos(angularDistance) + math.Cos(radlat1)*math.Sin(angularDistance)*math.Cos(-PI/2))
+	// Calculate Longitude coordinate west (270 degree) from the original point
+	tmp2 := latitudeCalculator(radlat1, angularDistance, -PI/2)
 	lon2West := lon1 + math.Atan2(math.Sin(-PI/2)*math.Sin(angularDistance)*math.Cos(radlat1), math.Cos(angularDistance)-math.Sin(radlat1)*math.Sin(tmp2))*180/PI
 
 	return lat2North, lat2South, lon2East, lon2West
