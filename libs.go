@@ -58,7 +58,7 @@ func calculateQueryFilter(dist int, lat1 float64, lon1 float64) (float64, float6
 	angularDistance := float64(dist) / 60 / 1.1515 / 1.609344 * PI / 180
 
 	lat2North := math.Asin(math.Sin(radlat1)*math.Cos(angularDistance)+math.Cos(radlat1)*math.Sin(angularDistance)*math.Cos(0)) * 180 / PI
-	lat2South := math.Asin(math.Sin(radlat1)*math.Cos(angularDistance)+math.Cos(radlat1)*math.Sin(angularDistance)*math.Cos(180)) * 180 / PI
+	lat2South := math.Asin(math.Sin(radlat1)*math.Cos(angularDistance)+math.Cos(radlat1)*math.Sin(angularDistance)*math.Cos(PI)) * 180 / PI
 
 	return lat2North, lat2South
 }
