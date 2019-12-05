@@ -50,7 +50,7 @@ func calculateDistance(lat1 float64, lng1 float64, lat2 float64, lng2 float64) f
 	return dist
 }
 
-func calculateQueryFilter(dist int, lat1 float64, lon1 float64) (float64, float64) {
+func calculateQueryFilter(dist int, lat1 float64, lon1 float64) (float64, float64, float64, float64) {
 	const PI float64 = 3.141592653589793
 
 	radlat1 := PI * lat1 / 180
@@ -60,7 +60,13 @@ func calculateQueryFilter(dist int, lat1 float64, lon1 float64) (float64, float6
 	lat2North := math.Asin(math.Sin(radlat1)*math.Cos(angularDistance)+math.Cos(radlat1)*math.Sin(angularDistance)*math.Cos(0)) * 180 / PI
 	lat2South := math.Asin(math.Sin(radlat1)*math.Cos(angularDistance)+math.Cos(radlat1)*math.Sin(angularDistance)*math.Cos(PI)) * 180 / PI
 
-	return lat2North, lat2South
+	tmp := math.Asin(math.Sin(radlat1)*math.Cos(angularDistance) + math.Cos(radlat1)*math.Sin(angularDistance)*math.Cos(PI/2))
+	lon2East := lon1 + math.Atan2(math.Sin(PI/2)*math.Sin(angularDistance)*math.Cos(radlat1), math.Cos(angularDistance)-math.Sin(radlat1)*math.Sin(tmp))*180/PI
+
+	tmp2 := math.Asin(math.Sin(radlat1)*math.Cos(angularDistance) + math.Cos(radlat1)*math.Sin(angularDistance)*math.Cos(-PI/2))
+	lon2West := lon1 + math.Atan2(math.Sin(-PI/2)*math.Sin(angularDistance)*math.Cos(radlat1), math.Cos(angularDistance)-math.Sin(radlat1)*math.Sin(tmp2))*180/PI
+
+	return lat2North, lat2South, lon2East, lon2West
 }
 
 func displayCitiesWithinDistance(citiesWithinDistance []City) {
