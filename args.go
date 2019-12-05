@@ -26,9 +26,9 @@ func argParser() (float64, float64, int) {
 
 	} else {
 		fmt.Println("Not enough parameters!\n" +
-			"Usage: woa <latitude> <longitude> <distance_in_km>\n" +
-			"E.g ./woa 47.497913 19.040236 1000")
+			"Usage: woa <distance_in_km> <latitude> <longitude>\n" +
+			"E.g ./woa 1000 47.497913 19.040236")
 		os.Exit(1)
 	}
-	return parsedArgs[0], parsedArgs[1], int(parsedArgs[2])
+	return parsedArgs[2], parsedArgs[1], int(parsedArgs[1])
 }
