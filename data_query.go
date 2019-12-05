@@ -2,14 +2,19 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"time"
 )
 
-func fetchData(bookmarkKey string) ([]byte, error) {
+func fetchData(north float64, south float64, bookmarkKey string) ([]byte, error) {
 
-	url := "https://mikerhodes.cloudant.com/airportdb/_design/view1/_search/geo?limit=200&q=lon:[-90%20TO%2090]%20AND%20lat:[-90%20TO%2090]"
+	northStr := fmt.Sprintf("%f", north)
+	southStr := fmt.Sprintf("%f", south)
+
+	urlBase := "https://mikerhodes.cloudant.com/airportdb/_design/view1/_search/geo?limit=200"
+	url := urlBase + "&q=lon:[0%20TO%2090]%20AND%20lat:[" + southStr + "%20TO%20" + northStr + "]"
 	if bookmarkKey != "" {
 		url += "&bookmark=" + bookmarkKey
 	}
@@ -42,8 +47,9 @@ func getDatabaseEntriesFor(lat float64, lon float64, distanceLimit int) ([]City,
 	var tmpResults QueryResult
 	var citiesWithinDistance []City
 
+	north, south := calculateQueryFilter(distanceLimit, lat, lon)
 	for {
-		byteValue, err = fetchData(key)
+		byteValue, err = fetchData(north, south, key)
 		if err != nil {
 			return nil, err
 		}

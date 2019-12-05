@@ -50,6 +50,19 @@ func calculateDistance(lat1 float64, lng1 float64, lat2 float64, lng2 float64) f
 	return dist
 }
 
+func calculateQueryFilter(dist int, lat1 float64, lon1 float64) (float64, float64) {
+	const PI float64 = 3.141592653589793
+
+	radlat1 := PI * lat1 / 180
+
+	angularDistance := float64(dist) / 60 / 1.1515 / 1.609344 * PI / 180
+
+	lat2North := math.Asin(math.Sin(radlat1)*math.Cos(angularDistance)+math.Cos(radlat1)*math.Sin(angularDistance)*math.Cos(0)) * 180 / PI
+	lat2South := math.Asin(math.Sin(radlat1)*math.Cos(angularDistance)+math.Cos(radlat1)*math.Sin(angularDistance)*math.Cos(180)) * 180 / PI
+
+	return lat2North, lat2South
+}
+
 func displayCitiesWithinDistance(citiesWithinDistance []City) {
 	sort.Sort(ByDistance(citiesWithinDistance))
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, 1, ' ', tabwriter.AlignRight|tabwriter.Debug)
