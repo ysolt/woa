@@ -2,17 +2,26 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"time"
 )
 
-func fetchData(bookmarkKey string) ([]byte, error) {
+func fetchData(south float64, north float64, west float64, east float64, bookmarkKey string) ([]byte, error) {
 
-	url := "https://mikerhodes.cloudant.com/airportdb/_design/view1/_search/geo?limit=200&q=lon:[-90%20TO%2090]%20AND%20lat:[-90%20TO%2090]"
+	northStr := fmt.Sprintf("%f", south)
+	southStr := fmt.Sprintf("%f", north)
+
+	eastStr := fmt.Sprintf("%f", west)
+	westStr := fmt.Sprintf("%f", east)
+
+	urlBase := "https://mikerhodes.cloudant.com/airportdb/_design/view1/_search/geo?limit=200"
+	url := urlBase + "&q=lon:[" + westStr + "%20TO%20" + eastStr + "]%20AND%20lat:[" + southStr + "%20TO%20" + northStr + "]"
 	if bookmarkKey != "" {
 		url += "&bookmark=" + bookmarkKey
 	}
+	//fmt.Print(url)
 
 	spaceClient := http.Client{
 		Timeout: time.Second * 2, // Maximum of 2 secs
@@ -42,8 +51,9 @@ func getDatabaseEntriesFor(lat float64, lon float64, distanceLimit int) ([]City,
 	var tmpResults QueryResult
 	var citiesWithinDistance []City
 
+	north, south, east, west := calculateQueryFilter(distanceLimit, lat, lon)
 	for {
-		byteValue, err = fetchData(key)
+		byteValue, err = fetchData(north, south, east, west, key)
 		if err != nil {
 			return nil, err
 		}
@@ -51,7 +61,7 @@ func getDatabaseEntriesFor(lat float64, lon float64, distanceLimit int) ([]City,
 		err = json.Unmarshal(byteValue, &tmpResults)
 
 		for i := 0; i < len(tmpResults.Rows); i++ {
-			distance := int(calculateDistance(tmpResults.Rows[i].City.Lat, tmpResults.Rows[i].City.Lon, lat, lon, "K"))
+			distance := int(calculateDistance(tmpResults.Rows[i].City.Lat, tmpResults.Rows[i].City.Lon, lat, lon))
 			if distance < distanceLimit {
 				tmpResults.Rows[i].City.Distance = distance
 				citiesWithinDistance = append(citiesWithinDistance, tmpResults.Rows[i].City)

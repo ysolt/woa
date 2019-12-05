@@ -12,7 +12,7 @@ the binary specific to your Operating System from the `github.com/ysolt/woa/rele
 
 In general to run the application you need to specify the arguments in the following order. 
  ```
-woa <latitude> <longitude> <distance in Km>
+woa <distance in Km> <latitude> <longitude> 
 ```
 
 Example output
@@ -33,13 +33,13 @@ You'll need to add execution bits to the downloaded binary file. Then you'll be 
 this 
 ```
 chmod 700 ./woa
-./woa 47.497913 19.040236 100
+./woa 100 47.497913 19.040236 
 ```
 
 Windows specific execution steps
 ===
 ```
-woa.exe 47.497913 19.040236 100
+woa.exe 100 47.497913 19.040236
 ```
 
 Development area
