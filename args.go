@@ -30,5 +30,5 @@ func argParser() (float64, float64, int) {
 			"E.g ./woa 1000 47.497913 19.040236")
 		os.Exit(1)
 	}
-	return parsedArgs[2], parsedArgs[1], int(parsedArgs[0])
+	return parsedArgs[1], parsedArgs[2], int(parsedArgs[0])
 }
